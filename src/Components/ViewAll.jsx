@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
+import axios from "axios";
 
 const ViewAll = () => {
-  const [data,changeData]=useState(
+  const [data, changeData] = useState({ data: [] });
 
-    [
-      {"SlNo":1,"uhidNo":1,"patientName":"DEV","hospitalName":'xyx',"doctorName":'sam',"gender":'male',"dob":"12-1-1992","mobileNo":45677888899},
-      {"SlNo":1,"uhidNo":1,"patientName":"DEV","hospitalName":'xyx',"doctorName":'sam',"gender":'male',"dob":12-1-1992,'mobileNo':45677888899},
-      {"SlNo":1,"uhidNo":1,"patientName":"DEV","hospitalName":'xyx',"doctorName":'sam',"gender":'male',"dob":12-1-1992,'mobileNo':45677888899},
-      {"SlNo":1,"uhidNo":1,"patientName":"DEV","hospitalName":'xyx',"doctorName":'sam',"gender":'male',"dob":12-1-1992,'mobileNo':45677888899},
-      {"SlNo":1,"uhidNo":1,"patientName":"DEV","hospitalName":'xyx',"doctorName":'sam',"gender":'male',"dob":12-1-1992,'mobileNo':45677888899},
-      {"SlNo":1,"uhidNo":1,"patientName":"DEV","hospitalName":'xyx',"doctorName":'sam',"gender":'male',"dob":12-1-1992,'mobileNo':45677888899},
-      {"SlNo":1,"uhidNo":1,"patientName":"DEV","hospitalName":'xyx',"doctorName":'sam',"gender":'male',"dob":12-1-1992,'mobileNo':45677888899},
-      {"SlNo":1,"uhidNo":1,"patientName":"DEV","hospitalName":'xyx',"doctorName":'sam',"gender":'male',"dob":12-1-1992,'mobileNo':45677888899}
-    ]
-  )
+  const fetchData = () => {
+    axios.get("http://localhost:4000/viewAll").then((response) => {
+      changeData(response.data);
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <>
       <Header />
@@ -34,27 +33,29 @@ const ViewAll = () => {
                       <th scope="col">Gender</th>
                       <th scope="col">Date of Birth</th>
                       <th scope="col">Mobile Number</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Pin</th>
                     </tr>
                   </thead>
                   <tbody>
-
-                  {data.map(
-                    (value,index)=>{
-                                        return (
-                                          <tr>
-                                            <th scope="row">{value.SlNo}</th>
-                                            <td>{value.uhidNo}</td>
-                                            <td>{value.patientName}</td>
-                                            <td>{value.hospitalName}</td>
-                                            <td>{value.doctorName}</td>
-                                            <td>{value.gender}</td>
-                                            <td>{value.dob}</td>
-                                            <td>{value.mobileNo}</td>
-                                          </tr>
-                                        );
-
-                    }
-                  )}
+                    {data.data.map((value, index) => {
+                      return (
+                        <tr>
+                          <th scope="row">{value.SlNo}</th>
+                          <td>{value.uhid}</td>
+                          <td>{value.name}</td>
+                          <td>{value.hospitalName}</td>
+                          <td>{value.doctorName}</td>
+                          <td>{value.gender}</td>
+                          <td>{value.dob}</td>
+                          <td>{value.mobileNo}</td>
+                          <td>{value.email}</td>
+                          <td>{value.address}</td>
+                          <td>{value.pin}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
