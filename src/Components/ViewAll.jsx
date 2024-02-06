@@ -6,7 +6,8 @@ const ViewAll = () => {
   const [data, changeData] = useState({ data: [] });
 
   const fetchData = () => {
-    axios.get("http://localhost:4000/viewAll").then((response) => {
+    axios.post("http://localhost:4000/viewAll").then((response) => {
+      console.log(response.data)
       changeData(response.data);
     });
   };

@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
 import Header from './Header'
+import axios from 'axios';
 
 const AddPatient = () => {
 
   const [input, changeInput] = useState({
-    uhidNo: "",
-    patientName: "",
+    uhid: "",
+    name: "",
     hospitalName: "",
     doctorName: "",
     gender: "",
     dob: "",
-    email_id:"",
+    email:"",
     address:"",
     mobileNo:"",
-    pin_code:""
+    pin:""
   });
 
 const readValue=(e)=>[
@@ -22,6 +23,16 @@ const readValue=(e)=>[
 
 const submitValue=()=>{
   console.log(input)
+  axios.post("http://localhost:4000/add",input).then(
+    (response)=>{
+if (response.data.status == "success") {
+  alert("successfully added")
+} else {
+
+  alert("error occured....")
+}
+    }
+  );
 }
 
 
@@ -40,8 +51,8 @@ const submitValue=()=>{
                 <input
                   type="text"
                   className="form-control"
-                  name="patientName"
-                  value={input.patientName}
+                  name="name"
+                  value={input.name}
                   onChange={readValue}
                 />
               </div>
@@ -64,8 +75,8 @@ const submitValue=()=>{
                 <input
                   type="text"
                   className="form-control"
-                  name="uhidNo"
-                  value={input.uhidNo}
+                  name="uhid"
+                  value={input.uhid}
                   onChange={readValue}
                 />
               </div>
@@ -128,8 +139,8 @@ const submitValue=()=>{
                   name=""
                   id=""
                   className="form-control"
-                  name="email_id"
-                  value={input.email_id}
+                  name="email"
+                  value={input.email}
                   onChange={readValue}
                 />
               </div>
@@ -152,8 +163,8 @@ const submitValue=()=>{
                 <input
                   type="text"
                   className="form-control"
-                  name="pin_code"
-                  value={input.pin_code}
+                  name="pin"
+                  value={input.pin}
                   onChange={readValue}
                 />
               </div>
